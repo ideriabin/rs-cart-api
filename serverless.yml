@@ -1,0 +1,25 @@
+service: rs-cart-api
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  environment:
+    user: postgres
+    password: postgres
+    host: rs-cart-api-db.czgquiqi6c71.eu-central-1.rds.amazonaws.com
+    port: 5432
+    db: cart_db
+
+functions:
+  main:
+    handler: dist/main.handler
+    events:
+      - http:
+          method: ANY
+          path: /
+      - http:
+          method: ANY
+          path: '{proxy+}'
